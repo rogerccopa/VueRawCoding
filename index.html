@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 </head>
+
 <body>
     <div id="app">
         <input type="text" v-model="message">
@@ -28,13 +30,20 @@
                 {{user.name}}
             </span>
         </p>
+
+        <ul>
+            <li v-for="(person, index) in list">
+                {{index + 1}}. {{person.name}}:{{person.age}}
+            </li>
+        </ul>
     </div>
 
     <script>
-        const {createApp, ref} = Vue;
+        const { createApp, ref } = Vue;
 
         var vueApp = createApp({
-            data() {
+            data()
+            {
                 return {
                     message: "Hello App1",
                     loginForm: {
@@ -42,37 +51,45 @@
                         password: ""
                     },
                     list: [
-                        "Roger", "Sonia", "Croquet"
+                        {name:"Roger", age:53},
+                        {name:"Sonia", age:18},
+                        {name:"Croquet", age:28}
                     ],
                     user: null
                 };
             },
             methods: {
-                submitForm() {
+                submitForm()
+                {
                     console.log("Submitting form", this.loginForm);
 
                     var self = this;
-                    var callLog = () => {
+                    var callLog = () =>
+                    {
                         self.log("Logging: something");
                         self.log(self.formInfo);
                     };
 
                     callLog();
                 },
-                log(val) {
+                log(val)
+                {
                     console.log(val);
                 }
             },
             computed: {
-                formInfo: function() {
+                formInfo: function ()
+                {
                     return this.loginForm.username + "/" + this.loginForm.password;
                 },
-                filteredList: function() {
-                    return this.list.filter(itm => itm.indexOf('e') > 0);
+                filteredList: function ()
+                {
+                    return this.list.filter(itm => itm.name.indexOf('e') > 0);
                 }
             }
         });
         vueApp.mount('#app');
     </script>
 </body>
+
 </html>
