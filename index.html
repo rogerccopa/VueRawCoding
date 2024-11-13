@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="message">
+        <input type="text" v-bind:value="message" v-on:input="message = $event.target.value">
+        {{message}}
+
+        <div>
+            <input v-model="loginForm.username">
+            <input v-model="loginForm.password">
+            <button v-on:click="submitForm">Submit</button>
+        </div>
+    </div>
+
+    <script>
+        const {createApp, ref} = Vue;
+
+        var vueApp = createApp({
+            data() {
+                return {
+                    message: "Hello App1",
+                    loginForm: {
+                        username: "",
+                        password: ""
+                    }
+                };
+            },
+            methods: {
+                submitForm() {
+                    console.log("Submitting form", this.loginForm);
+                    
+                    var callLog = () => {
+                        this.log("Logging: something");
+                    };
+
+                    callLog();
+                },
+                log(val) {
+                    console.log(val);
+                }
+            }
+        });
+        vueApp.mount('#app');
+    </script>
+</body>
+</html>
