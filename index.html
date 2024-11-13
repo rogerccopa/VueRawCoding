@@ -21,6 +21,13 @@
         <p>
             {{filteredList}}
         </p>
+
+        <p>
+            <button v-on:click="user = {name:'Roger'}">Toggle</button>
+            <span v-if="user">
+                {{user.name}}
+            </span>
+        </p>
     </div>
 
     <script>
@@ -36,7 +43,8 @@
                     },
                     list: [
                         "Roger", "Sonia", "Croquet"
-                    ]
+                    ],
+                    user: null
                 };
             },
             methods: {
