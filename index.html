@@ -7,6 +7,14 @@
     <title>Document</title>
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+        .text-red {
+            color: red;
+        }
+        .text-green {
+            color: green;
+        }
+    </style>
 </head>
 
 <body>
@@ -32,7 +40,7 @@
         </p>
 
         <ul>
-            <li v-for="(person, index) in list">
+            <li v-for="(person, index) in list" v-bind:class="{'text-red':person.color === 'red', 'text-green':person.color === 'green'}">
                 {{index + 1}}. {{person.name}}:{{person.age}}
             </li>
         </ul>
@@ -51,9 +59,9 @@
                         password: ""
                     },
                     list: [
-                        {name:"Roger", age:53},
-                        {name:"Sonia", age:18},
-                        {name:"Croquet", age:28}
+                        {name:"Roger", age:53, color:"red"},
+                        {name:"Sonia", age:18, color:"red"},
+                        {name:"Croquet", age:28, color:"green"}
                     ],
                     user: null
                 };
