@@ -18,6 +18,9 @@
             <input v-model="loginForm.password">
             <button v-on:click="submitForm">Submit</button>
         </div>
+        <p>
+            {{filteredList}}
+        </p>
     </div>
 
     <script>
@@ -30,21 +33,34 @@
                     loginForm: {
                         username: "",
                         password: ""
-                    }
+                    },
+                    list: [
+                        "Roger", "Sonia", "Croquet"
+                    ]
                 };
             },
             methods: {
                 submitForm() {
                     console.log("Submitting form", this.loginForm);
-                    
+
+                    var self = this;
                     var callLog = () => {
-                        this.log("Logging: something");
+                        self.log("Logging: something");
+                        self.log(self.formInfo);
                     };
 
                     callLog();
                 },
                 log(val) {
                     console.log(val);
+                }
+            },
+            computed: {
+                formInfo: function() {
+                    return this.loginForm.username + "/" + this.loginForm.password;
+                },
+                filteredList: function() {
+                    return this.list.filter(itm => itm.indexOf('e') > 0);
                 }
             }
         });

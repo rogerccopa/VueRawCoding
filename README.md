@@ -1,4 +1,4 @@
 # VueRawCoding
 Learning Vue
 
-Continue at Ep.5 @000000
+Continue at Ep.6 @000000
