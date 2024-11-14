@@ -41,7 +41,7 @@
 
         <ul>
             <li v-for="(person, index) in list">
-                <span-component v-bind:item="person" v-bind:ndx="index"></span-component>
+                <span-component v-bind:item="person" v-bind:ndx="index" v-on:shout="log"></span-component>
             </li>
         </ul>
     </div>
@@ -106,7 +106,14 @@
                 // callback:Function,
                 // contactsPromise:Promise
             },
-            template: "<span v-bind:class=\"{'text-red':item.color === 'red', 'text-green':item.color === 'green'}\">{{ndx + 1}}. {{item.name}}:{{item.age}}</span>"
+            template: "<span v-on:click=\"shout(ndx)\" v-bind:class=\"{'text-red':item.color === 'red', 'text-green':item.color === 'green'}\">" +
+                            "{{ndx + 1}}. {{item.name}}:{{item.age}}" +
+                        "</span>",
+            methods: {
+                shout(val) {
+                    this.$emit('shout', {value: val});
+                }
+            }
         });
         vueApp.mount('#app');
     </script>
