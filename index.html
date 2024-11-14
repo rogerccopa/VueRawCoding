@@ -11,6 +11,7 @@
         .text-red {
             color: red;
         }
+
         .text-green {
             color: green;
         }
@@ -33,17 +34,21 @@
         </p>
 
         <p>
-            <button v-on:click="user = {name:'Roger'}">Toggle</button>
+            <button v-on:click="user = show ? {'name':'RogerCcopa'}: null; show = !show;">
+                Toggle Component List
+            </button><br/>
             <span v-if="user">
                 {{user.name}}
             </span>
         </p>
 
-        <ul>
-            <li v-for="(person, index) in list">
-                <span-component v-bind:item="person" v-bind:ndx="index" v-on:shout="log"></span-component>
-            </li>
-        </ul>
+        <div v-if="show">
+            <ul>
+                <li v-for="(person, index) in list">
+                    <span-component v-bind:item="person" v-bind:ndx="index" v-on:shout="log"></span-component>
+                </li>
+            </ul>
+        </div>
     </div>
 
     <script>
@@ -59,11 +64,12 @@
                         password: ""
                     },
                     list: [
-                        {name:"Roger", age:53, color:"red"},
-                        {name:"Sonia", age:18, color:"red"},
-                        {name:"Croquet", age:28, color:"green"}
+                        { name: "Roger", age: 53, color: "red" },
+                        { name: "Sonia", age: 18, color: "red" },
+                        { name: "Croquet", age: 28, color: "green" }
                     ],
-                    user: null
+                    user: null,
+                    show: true
                 };
             },
             methods: {
@@ -82,7 +88,7 @@
                 },
                 log(obj)
                 {
-                    var {value} = obj;  // deconstruct and take 'value' property
+                    var { value } = obj;  // deconstruct and take 'value' property
                     console.log(value);
                 }
             },
@@ -95,12 +101,20 @@
                 {
                     return this.list.filter(itm => itm.name.indexOf('e') > 0);
                 }
+            },
+            created()
+            {
+                console.log("Main created");
+            },
+            mounted()
+            {
+                console.log("Main mounted");
             }
         });
         vueApp.component('span-component', {
             props: {
-                item:Object,
-                ndx:Number,
+                item: Object,
+                ndx: Number,
                 // title:String,
                 // isPublished:Boolean,
                 // commentIds:Array,
@@ -108,13 +122,18 @@
                 // contactsPromise:Promise
             },
             template: "<span v-on:click=\"shout(ndx)\" " +
-                            "v-bind:class=\"{'text-red':item.color === 'red', 'text-green':item.color === 'green'}\">" +
-                            "{{ndx + 1}}. {{item.name}}:{{item.age}}" +
-                        "</span>",
+                "v-bind:class=\"{'text-red':item.color === 'red', 'text-green':item.color === 'green'}\">" +
+                "{{ndx + 1}}. {{item.name}}:{{item.age}}" +
+                "</span>",
             methods: {
-                shout(val) {
-                    this.$emit('shout', {value: val});
+                shout(val)
+                {
+                    this.$emit('shout', { value: val });
                 }
+            },
+            created()
+            {
+                console.log("Component created");
             }
         });
         vueApp.mount('#app');
