@@ -40,8 +40,8 @@
         </p>
 
         <ul>
-            <li v-for="(person, index) in list" v-bind:class="{'text-red':person.color === 'red', 'text-green':person.color === 'green'}">
-                {{index + 1}}. {{person.name}}:{{person.age}}
+            <li v-for="(person, index) in list">
+                <span-component v-bind:item="person" v-bind:ndx="index"></span-component>
             </li>
         </ul>
     </div>
@@ -95,6 +95,18 @@
                     return this.list.filter(itm => itm.name.indexOf('e') > 0);
                 }
             }
+        });
+        vueApp.component('span-component', {
+            props: {
+                item:Object,
+                ndx:Number,
+                // title:String,
+                // isPublished:Boolean,
+                // commentIds:Array,
+                // callback:Function,
+                // contactsPromise:Promise
+            },
+            template: "<span v-bind:class=\"{'text-red':item.color === 'red', 'text-green':item.color === 'green'}\">{{ndx + 1}}. {{item.name}}:{{item.age}}</span>"
         });
         vueApp.mount('#app');
     </script>
